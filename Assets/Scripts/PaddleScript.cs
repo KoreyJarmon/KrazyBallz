@@ -6,14 +6,31 @@ public class PaddleScript : MonoBehaviour{
     public Rigidbody2D rb;
     public float speed;
     public float maxX;
+    private float width;
+    private Vector3 position;
 
     // Start is called before the first frame update
     void Start(){
-        
+        width = (float)Screen.width / 2.0f;
     }
+
 
     // Update is called once per frame
     void Update(){
+        
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+
+            if (touch.phase == TouchPhase.Moved)
+            {
+                Vector2 post = touch.position;
+                post.x = (post.x - width) / width;
+                position = new Vector3((post.x)*4, transform.position.y, 0.0f);
+                transform.position = position;
+            }
+        }
+
         float x = Input.GetAxis("Horizontal");
         if (x < 0){
             MoveLeft();

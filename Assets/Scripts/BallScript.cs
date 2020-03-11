@@ -16,7 +16,7 @@ public class BallScript : MonoBehaviour{
 
     // Update is called once per frame
     void Update(){
-        if (Input.GetKeyUp(KeyCode.Space) && gameStarted==false){
+        if ((Input.GetKeyUp(KeyCode.Space) || Input.touchCount > 0) && gameStarted==false){
             transform.SetParent(null);
             rb.isKinematic = false;
             rb.AddForce(new Vector2(ballForce, ballForce));

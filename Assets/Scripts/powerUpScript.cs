@@ -9,6 +9,7 @@ public class powerUpScript : MonoBehaviour
     void Start()
     {
         gm = GameObject.FindWithTag("GM").GetComponent<GM>();
+        Physics.IgnoreLayerCollision(0, 1);
     }
 
     // Update is called once per frame
@@ -19,12 +20,16 @@ public class powerUpScript : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "bottom")
+        if (collision.gameObject.tag == "Player")
         {
             gm.moreBalls();
             Destroy(gameObject);
         }
-        if (collision.gameObject.tag == "brick" || collision.gameObject.tag == "ball" || collision.gameObject.tag == "power")
+        else if (collision.gameObject.tag == "bottom")
+        {
+            Destroy(gameObject);
+        }
+        else if (collision.gameObject.tag == "brick" || collision.gameObject.tag == "power")
         {
             Physics2D.IgnoreCollision(collision.gameObject.GetComponent<Collider2D>(), GetComponent<Collider2D>());
         }
